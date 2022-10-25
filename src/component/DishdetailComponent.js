@@ -10,6 +10,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "reactstrap";
+import CommentForm from "./CommentForm";
 
 function DishDetail({ dish, comments }) {
   const renderDish = (dish) => {
@@ -65,6 +66,7 @@ function DishDetail({ dish, comments }) {
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
           {renderComments(comments)}
+          <CommentForm/>
         </div>
       </div>
     </div>
