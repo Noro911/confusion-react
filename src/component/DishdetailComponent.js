@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import {
   Card,
   CardImg,
@@ -27,6 +27,7 @@ function DishDetail({ dish, comments }) {
   };
 
   const renderComments = (comments) => {
+    console.log(comments);
     return comments.map((comment) => (
       <div key={comment.id}>
         <p>{comment.comment}</p>

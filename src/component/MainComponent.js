@@ -10,7 +10,14 @@ import { COMMENTS } from "../shared/comments";
 import { PROMOTIONS } from "../shared/promotions";
 import { LEADERS } from "../shared/leaders";
 import About from "./AboutComponent";
-import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useParams,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -23,12 +30,7 @@ const mapStateToProps = (state) => {
 };
 
 function Main({ dishes, comments, promotions, leaders }) {
-  // const [state, setState] = React.useState({
-  //   dishes: DISHES,
-  //   comments: COMMENTS,
-  //   promotions: PROMOTIONS,
-  //   leaders: LEADERS,
-  // });
+
   const [selectedDish, setSelectedDish] = React.useState(null);
 
   const onDishSelect = (dish) => {
@@ -68,7 +70,7 @@ function Main({ dishes, comments, promotions, leaders }) {
             element={
               <>
                 <Menu dishes={dishes} onClick={(dish) => onDishSelect(dish)} />
-                {selectedDish && <DishDetail dish={selectedDish} />}
+                {selectedDish? <DishDetail dish={selectedDish} comments={comments} />: <></>}
               </>
             }
           />
@@ -83,4 +85,5 @@ function Main({ dishes, comments, promotions, leaders }) {
   );
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default connect(mapStateToProps)(Main)
+// export default withRouter(connect(mapStateToProps)(Main));
