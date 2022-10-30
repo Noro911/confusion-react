@@ -12,7 +12,8 @@ import {
 } from "reactstrap";
 import CommentForm from "./CommentForm";
 
-function DishDetail({ dish, comments }) {
+function DishDetail({ dish, comments, addComment }) {
+  
   const renderDish = (dish) => {
     return (
       <div className="col-12 col-md-5 m-1">
@@ -28,7 +29,6 @@ function DishDetail({ dish, comments }) {
   };
 
   const renderComments = (comments) => {
-    console.log(comments);
     return comments.map((comment) => (
       <div key={comment.id}>
         <p>{comment.comment}</p>
@@ -66,7 +66,7 @@ function DishDetail({ dish, comments }) {
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
           {renderComments(comments)}
-          <CommentForm/>
+          <CommentForm dishId={dish.id} addComment={addComment}/>
         </div>
       </div>
     </div>

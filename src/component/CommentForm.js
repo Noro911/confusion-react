@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { Row, Col, Label } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 
-function CommentForm() {
+function CommentForm({dishId, addComment}) {
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,7 +22,9 @@ function CommentForm() {
   const {rating, name, comment, touched} = state
 
   const handleSubmit = (values) => {
-    console.log(values)
+    // console.log(addComment)
+    addComment(dishId, values.rating, values.author, values.comment)
+    handleClose()
     // setState({
     //   rating: values.rating,
     //   name: values.name,
@@ -61,7 +63,6 @@ function CommentForm() {
     }
     
   };
-  console.log(touched.name)
 
   return (
     <>

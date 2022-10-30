@@ -10,6 +10,7 @@ import { COMMENTS } from "../shared/comments";
 import { PROMOTIONS } from "../shared/promotions";
 import { LEADERS } from "../shared/leaders";
 import About from "./AboutComponent";
+import { addComment } from "../redux/ActionCreators";
 import {
   Routes,
   Route,
@@ -29,8 +30,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-function Main({ dishes, comments, promotions, leaders }) {
+const mapDispatchToProps = (dispatch) => ({
+  addComment: (dishId, rating, author, comment) =>
+    dispatch(addComment(dishId, rating, author, comment)),
+});
 
+
+function Main({ dishes, comments, promotions, leaders, addComment }) {
   const [selectedDish, setSelectedDish] = React.useState(null);
 
   const onDishSelect = (dish) => {
@@ -55,6 +61,7 @@ function Main({ dishes, comments, promotions, leaders }) {
         comments={comments.filter(
           (comment) => comment.dishId === parseInt(dishId, 10)
         )}
+        addComment={addComment}
       />
     );
   };
@@ -70,7 +77,11 @@ function Main({ dishes, comments, promotions, leaders }) {
             element={
               <>
                 <Menu dishes={dishes} onClick={(dish) => onDishSelect(dish)} />
-                {selectedDish? <DishDetail dish={selectedDish} comments={comments} />: <></>}
+                {selectedDish ? (
+                  <DishDetail dish={selectedDish} comments={comments} />
+                ) : (
+                  <></>
+                )}
               </>
             }
           />
@@ -85,5 +96,5 @@ function Main({ dishes, comments, promotions, leaders }) {
   );
 }
 
-export default connect(mapStateToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
 // export default withRouter(connect(mapStateToProps)(Main));
